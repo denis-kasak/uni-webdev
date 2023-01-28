@@ -25,6 +25,10 @@ a:link{
     vertical-align: middle;
 }
 
+.contact {
+    float: right;
+}
+
 .grid-container {
     display: grid;
     height: 100%;
