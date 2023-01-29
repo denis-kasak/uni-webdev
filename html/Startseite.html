@@ -1,9 +1,19 @@
-<HTml>
+<html>
     <head>
+        <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="styles.css">
         <link rel="icon" href="vergleichen.png">
         <title>Vergleiche 24</title>
+        <style>
+            .d-flex{
+             display: flex;
+            }
+
+            .flex-1{
+            flex: 1;
+            }
+        </style>
     </head>
     <body>
         <p id="Seitenanfang"></p>
@@ -12,11 +22,13 @@
                 <h1>Vergleiche 24 - Das Vergleichsportal</h1>
             </div>
             <div class="item2">
-                <div class="flex-container-menu">
-                   <div> <a class="link" href="Hardware.html">Hardware</a></div> <br>
-                   <div> <a class="link" href="Software.html">Software</a></div> <br>
-                    <div><a class="link" href="Komplettsysteme.html">Komplettsysteme</a></div> <br>
-                    <div><a class="link" href="Elektrobauteile.html">Elektrobauteile</a></div> <br>   
+             <div class="flex-container-menu">
+                <div class="d-flex" align="center">
+                   <div class="flex-1"> <a class="link" href="Hardware.html">Hardware</a></div>
+                   <div class="flex-1"> <a class="link" href="Software.html">Software</a></div>
+                   <div class="flex-1"><a class="link" href="Komplettsysteme.html">Komplettsysteme</a></div>
+                   <div class="flex-1"><a class="link" href="Elektrobauteile.html">Elektrobauteile</a></div> 
+                </div>  
                 </div>
             </div>
             <div class="item3">
@@ -93,4 +105,4 @@
                 
         </div>
     </body>
-</HTml>
+</html>
