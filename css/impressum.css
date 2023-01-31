@@ -9,6 +9,9 @@ li {
     grid-template-columns: 30% auto;
 }
 
+textarea {
+    resize: none;
+}
 
 a:link{
     color: white;
