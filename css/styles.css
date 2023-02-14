@@ -1,5 +1,5 @@
 body, html{
-  height:100%;
+  max-height:100%;
   margin: 0px;
   padding: 0px;
 }
@@ -8,6 +8,7 @@ h1{
   margin:5px;
 }
 select{
+  max-height:40px;
   margin: 0.5em
 }
 a{
@@ -50,3 +51,17 @@ a.link{text-align: left; color: green; margin-bottom: 5%;}
   font-size: 0.5em;
 }
 
+.anbieter-container{
+  display:grid;
+  grid-template-columns: 500px;
+  grid-gap:50px;
+}
+
+.anbieter{
+  max-height:500px;
+}
+
+.filter-header{
+  display:flex;
+  flex-wrap:wrap;
+}

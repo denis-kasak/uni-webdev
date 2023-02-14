@@ -1,0 +1,10 @@
+.filter-header {
+    display: flex;
+    flex-wrap:wrap
+}
+
+.anbieter-container {
+    display: grid;
+    grid-gap: 50px;
+    grid-template-columns: repeat(auto-fill, 200px);
+}
