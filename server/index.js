@@ -3,6 +3,8 @@
 
 const express = require("express");
 var mysql = require('mysql');
+const cookieParser = require("cookie-parser");
+var bodyParser = require('body-parser');
 const app = express();
 
 var connection = mysql.createConnection({
@@ -43,11 +45,18 @@ connection.connect(function(err){
 
 app.use(express.static("Webentwicklung"));
 app.get('/', (req, res) => {
+	if(req.cookies.user == undefined){
+		res.cookie("user", Date.now().toString, {expires = Number.MAX_SAFE_INTEGER});
+	}
 	    res.sendFile('/index.html', {root: __dirname });
 });
 
 app.get('/Impressum', (req, res) => {
-	res.sendFile('/Impressum.html', {root: __dirname });
+	if(req.cookies.user == undefined){
+		res.redirect('/');
+	}else{
+		res.sendFile('/Impressum.html', {root: __dirname });
+	}
 });
 
 app.listen(8081);
