@@ -6,7 +6,7 @@ const express = require("express");
 const cookieParser = require("cookie-parser");
 var bodyParser = require('body-parser');
 const app = express();
-import * as sqlmodule from "./sql-module.js";
+var sqlmodule = require("./sql-module");
 
 
 app.use(express.static("Webentwicklung"));
