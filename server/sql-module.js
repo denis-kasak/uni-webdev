@@ -8,9 +8,9 @@ var connection = mysql.createConnection({
 var mysql = require('mysql');
 
 let createKommentare = "Create Table Kommentare  ( user varchar(3000), Kommentar varchar(2000));";
-let createFavoriten= "Create Table Favoriten(user varchar(3000),Favouritenbeschreibung varchar(1000) ,Favoritenquery varchar(2000));";
+let createFavoriten= "Create Table Favoriten(id int auto_increment primary key, user varchar(3000),Favouritenbeschreibung varchar(1000) ,Favoritenquery varchar(2000));";
 let createUser="Create table User (id int auto_increment primary key,user varchar(3000) );";
-
+let createPortal = "Create table Portale (name varchar(3000), Beschreibung varchar(3000));"
 
 
 
@@ -38,16 +38,30 @@ function generateDatabase(){
               console.log(err.message);
             }
           });
+
+          connection.query(createPortal, function(err, results, fields){
+            if(err){
+                console.log(err.message);
+            }
+          });
     });
 }
 
-function getFavorite(){
-    let sql = "SELECT * FROM Favoriten WHERE"
+function getFavorite(favId){
+    let sql = "SELECT * FROM Favoriten WHERE id="+favId+";";
 
     connection.connect(sql,function(err){
         if(err){
             console.log(err.message);
         }
+
+        connection.query(sql, function(err, results, _){
+            if(err){
+                console.log(err.message);
+            }
+
+            return results;
+        });
     });
 }
 
@@ -91,7 +105,7 @@ function getUsername(userid){
 }
 
 //Random Username wird gespeichert
-function createUser(username){
+function addUser(username){
 let sql = "INSERT INTO User(user) VALUES('"+username+"');";
 connection.connect(function(err){
     if(err){
@@ -141,7 +155,39 @@ function setKommentar(user, kommentar){
 }
 
 //Eigene Table
-function getBeschreibung(user){
-let sql = "SELECT * FROM Favoriten"
+function getBeschreibung(name){
+let sql = "SELECT Beschreibung FROM Portale WHERE name = '"+name+"'";
+
+connection.connect(function(err){
+    if(err){
+        console.log(err.message);
+    }
+
+    connection.query(sql, function(err, results, _){
+        if(err){
+            console.log(err.message);
+        }
+
+        return results;
+    });
+});
+}
+
+function getAllFavoriten(user){
+let sql = "SELECT * FROM Favoriten WHERE user='"+user+"';";
+
+connection.connect(function(err){
+    if(err){
+        console.log(err);
+    }
+
+    connection.query(sql, function(err, results, _){
+        if(err){
+            console.log(err);
+        }
+
+        return results;
+    });
+});
 }
 

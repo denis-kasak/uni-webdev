@@ -9,6 +9,8 @@ const app = express();
 var sqlmodule = require("./sql-module");
 
 
+sqlmodule.generateDatabase();
+
 app.use(express.static("Webentwicklung"));
 app.get('/', (req, res) => {
 	if(req.cookies.user == undefined){
