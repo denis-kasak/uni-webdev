@@ -1,4 +1,3 @@
-//import {connectToDatabase} from './connection';
 const express = require("express");
 const cookieParser = require("cookie-parser");
 var bodyParser = require('body-parser');
@@ -19,9 +18,6 @@ app.get('/', (req, res) => {
 		res.cookie("user", userid, { expires: d, httpOnly: true });
 		sqlmodule.addUser(userid);
 	}
-	/*if(req.cookies.session === undefined){
-		res.cookie("session", "active session by" + req.cookies.user);
-	}*/
 	res.sendFile('/html/index.html', { root: 'static' });
 });
 
@@ -36,37 +32,3 @@ app.get('/impressum', (req, res) => {
 app.use(express.static('static'));
 
 app.listen(8081);
-/*var users = [];
-var Kommentare = [];
-var Favouriten = [];
-let Names = ["AnonymesZebra", "AnonymerGorilla", "AnonymesKänguru", "AnonymesChinchilla"];
-function createUser(){
-	var Name = Names[Math.floor(Math.random()*Names.length)];
-	var id = uuid();
-	var Username = Name + id;
-	const newUser = { id: id, Username: Username};	
-	users.push(newUser);
-}
-function createKommentar(usercookie,paramKommentar){
-	var usera = users.find((user) => user.id === paramuser);
-	var user = usera.Username;
-	const newKommentar = {id: id, Username: user,userid: usercookie, Kommentar: paramKommentar,Zeit:  Zeitstempel() }
-	Kommentare.push(newKommentar);
-}
-function Zeitstempel(){
-  var heute = new Date();
-  var Datum = heute.getDate();
-  var StundenZahl = heute.getHours();
-  var MinutenZahl = heute.getMinutes();
-  var SekundenZahl = heute.getSeconds();
-  return Datum.toString() + " " + StundenZahl.toString()+ ":" + MinutenZahl.toString() + ":" + SekundenZahl.toString;
-}
-function getKommentar(id){
-	return Kommentare.find((Kommentar) => Kommentar.id === id)
-}
-
-function getallKommentarebyUser(usercookie){
-	return Kommentare.find((Kommentar) => Kommentar.id === usercookie)
-}
-*/
-
