@@ -6,16 +6,16 @@
 
 <body>
     <img src="../images/logo.png">
-    <h1>Vergleich 24 - das Vergleichsportal für Vergleichsportale</h1>
+    <h1><span>Vergleich 24 - das Vergleichsportal für Vergleichsportale</span></h1>
     <div>
-        <h3>Zu vergleichende Vergleichsportale:</h3>
+        <h3><span>Zu vergleichende Vergleichsportale:</span></h3>
         <ul>
             <li>Check24</li>
             <li>Verifox</li>
             <li>Idealo</li>
             <li>Airbnb</li>
         </ul>
-        <h3>Kategorien der Vergleichportale:</h3>
+        <h3><span>Kategorien der Vergleichportale:</span></h3>
         <table>
             <tr>
                 <th>Anbieter</th>
@@ -40,7 +40,7 @@
         </table>
     </div>
     <form>
-        <h2>Schnellsuche</h2>
+        <h2><span>Schnellsuche</span></h2>
         <div class="filter-header">
             <label for="Kategorie">Kategorie: </label>
             <select name="Kategorie">
@@ -60,36 +60,75 @@
         </div>
     </form>
     <div class="anbieter-container">
-        <p>1 Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt
-            ut
-            labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo
-            dolores
-            et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
-        </p>
-        <p>2 Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt
-            ut
-            labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo
-            dolores
-            et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
-        </p>
-        <p>3 Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt
-            ut
-            labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo
-            dolores
-            et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
-        </p>
-        <p>4 Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt
-            ut
-            labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo
-            dolores
-            et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
-        </p>
-        <p>5 Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt
-            ut
-            labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo
-            dolores
-            et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
-        </p>
+        <div class="anbieter" id="check24">
+            <h2><span>
+                Check24
+            </span></h2>
+            <p>Vergleich.org ist eine Online-Plattform, die Verbrauchern dabei hilft, die besten Produkte in
+                verschiedenen Kategorien zu finden. Die Seite bietet eine breite Palette von Kategorien, darunter
+                Elektronik, Haushaltsgeräte, Sport und Freizeit, Gesundheit und Beauty sowie viele andere.</p>
+        </div>
+        <div class="anbieter" id="verifox">
+            <h2><span>
+                Verifox
+            </span></h2>
+            <p>Verifox ist ein Online-Vergleichsportal für Strom, DSL, Handy und Versicherungen. Das Portal
+                bietet eine breite Palette von Produkten und Dienstleistungen, die von verschiedenen Anbietern
+                angeboten werden. Verifox ist ein unabhängiges Portal, das von der Verifox GmbH betrieben wird.</p>
+        </div>
+        <div class="anbieter" id="idealo">
+            <h2><span>
+                Idealo
+            </span></h2>
+            <p>Idealo ist ein Online-Vergleichsportal für Produkte, Flüge und Hotels. Das Portal bietet eine
+                breite Palette von Produkten und Dienstleistungen, die von verschiedenen Anbietern angeboten werden.
+                Idealo ist ein unabhängiges Portal, das von der Idealo GmbH betrieben wird.</p>
+        </div>
+        <div class="anbieter" id="airbnb">
+            <h2><span>
+                Airbnb
+            </span></h2>
+            <p>Airbnb ist ein Online-Vergleichsportal für Flüge und Hotels. Das Portal bietet eine breite Palette
+                von Produkten und Dienstleistungen, die von verschiedenen Anbietern angeboten werden. Airbnb ist ein
+                unabhängiges Portal, das von der Airbnb GmbH betrieben wird.</p>
+        </div>
+        <div class="anbieter" id="billiger">
+            <h2><span>
+                Billiger.de
+            </span></h2>
+            <p>Billiger.de ist ein Online-Vergleichsportal für Strom, DSL, Handy und Versicherungen. Das Portal
+                bietet eine breite Palette von Produkten und Dienstleistungen, die von verschiedenen Anbietern
+                angeboten werden. Billiger.de ist ein unabhängiges Portal, das von der Billiger.de GmbH betrieben
+                wird.</p>
+        </div>
+        <div class="anbieter" id="vergleich">
+            <h2><span>
+                Vergleich.org
+            </span></h2>
+            <p>Vergleich.org ist eine Online-Plattform, die Verbrauchern dabei hilft, die besten Produkte in
+                verschiedenen Kategorien zu finden. Die Seite bietet eine breite Palette von Kategorien, darunter
+                Elektronik, Haushaltsgeräte, Sport und Freizeit, Gesundheit und Beauty sowie viele andere.</p>
+        </div>
+    </div>
+    <div class="kommentare">
+        <!-- textarea -->
+        <h2><span>Kommentare</span></h2>
+        <form>
+            <textarea name="Kommentar" rows="4" cols="50"></textarea>
+            <input type="submit" value="Absenden" />
+        </form>
+        <div class="kommentar">
+            <h3>Max Mustermann</h3>
+            <p>Das ist ein Kommentar</p>
+        </div>
+        <div class="kommentar">
+            <h3>Max Mustermann</h3>
+            <p>Das ist ein Kommentar</p>
+        </div>
+        <div class="kommentar">
+            <h3>Max Mustermann</h3>
+            <p>Das ist ein Kommentar</p>
+        </div>
     </div>
     <a href="./impressum.html">Impressum</a>
 </body>
