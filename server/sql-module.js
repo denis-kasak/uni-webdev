@@ -1,207 +1,171 @@
-    var mysql = require('mysql');
-    var connection = mysql.createConnection({
-        host: 'localhost',
-        user: 'root',
-        password: 'passwort',
-        database: 'vergleich24'
-    });
+let mysql = require('mysql2');
 
+let connection = mysql.createConnection({
+    host: 'localhost',
+    user: 'root',
+    password: 'passwort',
+    database: 'vergleich24'
+});
 
+getFavorite = function getFavorite(favId) {
+    let sql = "SELECT * FROM Favoriten WHERE id=" + favId + ";";
 
-    let createKommentare = "Create Table Kommentare  ( user varchar(3000), Kommentar varchar(2000));";
-    let createFavoriten= "Create Table Favoriten(id int auto_increment primary key, user varchar(3000),Favouritenbeschreibung varchar(1000) ,Favoritenquery varchar(2000));";
-    let createUser="Create table User (id int auto_increment primary key,user varchar(3000), anzeigename varchar(3000) );";
-    let createPortal = "Create table Portale (name varchar(3000), Beschreibung varchar(3000));";
-   module.exports.generateDatabase = function generateDatabase(){
-
-        connection.connect(function(err){
-            if(err){
-                return console.error('error '+err.message);
-            }
-        
-            console.log("connected to the mysql server.");
-        
-            connection.query(createKommentare, function(err, results, fields) {
-                if (err) {
-                  console.log(err.message);
-                }
-              });
-              connection.query(createFavoriten, function(err, results, fields) {
-                if (err) {
-                  console.log(err.message);
-                }
-              });
-              connection.query(createUser, function(err, results, fields) {
-                if (err) {
-                  console.log(err.message);
-                }
-              });
-
-              connection.query(createPortal, function(err, results, fields){
-                if(err){
-                    console.log(err.message);
-                }
-              });
-        });
-    }
-
-    module.exports.getFavorite = function getFavorite(favId){
-        let sql = "SELECT * FROM Favoriten WHERE id="+favId+";";
-
-        connection.connect(sql,function(err){
-            if(err){
-                console.log(err.message);
-            }
-
-            connection.query(sql, function(err, results, _){
-                if(err){
-                    console.log(err.message);
-                }
-
-                return results;
-            });
-        });
-    }
-
-    //User = UserCoockie
-    module.exports.setFavorite =  function setFavorite(user, beschreibung, favoritenquery){
-        let sql = "INSERT INTO Favoriten(user, Favouritenbeschreibung, Favoritenquery)VALUES('"+user+"', '"+beschreibung+"', '"+favoritenquery+"');";
-
-        connection.connect(function(err){
-            if(err){
-                console.log(err.message);
-            }
-
-            connection.query(sql, function(err, results, _){
-                if(err){
-                    console.log(err.message);
-                }
-
-                return results;
-            });
-        });
-    }
-
-    module.exports.getUsername = function getUsername(userid){
-        let sql = "SELECT user FROM User WHERE id="+userid+";";
-
-        connection.connect(function(err){
-            if(err){
-                console.log(err.message);
-            }
-
-            connection.query(sql, function(err, results, _){
-                if(err){
-                    console.log(err);
-                }
-
-                return results;
-
-            });
-
-        });
-    }
-
-    //Random Username wird gespeichert
-    module.exports.addUser = function addUser(username){
-    let sql = "INSERT INTO User(user) VALUES('"+username+"');";
-    connection.connect(function(err){
-        if(err){
-            console.log(err.message);
-        }
-        connection.query(sql, function(err, results, _){
-            if(err){
-                console.log(err.message);
-            }
-        });
-    });
-    }
-
-    module.exports.updateAnzeigename = function updateAnzeigename(usercookie, anzeigename){
-        let sql = "Update User set anzeigename = '"+anzeigename+"' where user = '"+usercookie+"';";
-        connection.connect(function(err){
-            if(err){
-                console.log(err.message);
-            }
-            connection.query(sql, function(err, results, _){
-                if(err){
-                    console.log(err.message);
-                }
-            });
-        });
-    }
-
-    module.exports.getKommentare = function getKommentare(){
-        let sql = "SELECT * FROM Kommentare;";
-
-        connection.connect(function(err){
-            if(err){
-                console.log(err.message);
-            }
-
-            connection.query(sql, function(err, results, _){
-                if(err){
-                    console.log(err.message);
-                }
-
-                return results;
-            });
-        });
-    }
-
-    module.exports.setKommentar = function setKommentar(user, kommentar){
-        let sql = "INSERT INTO Kommentare(user, Kommentar) VALUES('"+user+"','"+kommentar+"');";
-        connection.connect(function(err){
-            if(err){
-                console.log(err);
-            }
-
-            connection.query(sql, function(err, results, _){
-                if(err){
-                    console.log(err);
-                }
-                return results;
-            });
-
-        });
-    }
-
-    //Eigene Table
-    module.exports.getBeschreibung = function getBeschreibung(name){
-    let sql = "SELECT Beschreibung FROM Portale WHERE name = '"+name+"'";
-
-    connection.connect(function(err){
-        if(err){
+    connection.connect(sql, function (err) {
+        if (err) {
             console.log(err.message);
         }
 
-        connection.query(sql, function(err, results, _){
-            if(err){
+        connection.query(sql, function (err, results, _) {
+            if (err) {
                 console.log(err.message);
             }
 
             return results;
         });
     });
-    }
+}
 
-    module.exports.getAllFavoriten = function getAllFavoriten(user){
-    let sql = "SELECT * FROM Favoriten WHERE user='"+user+"';";
+//User = UserCoockie
+setFavorite = function setFavorite(user, beschreibung, favoritenquery) {
+    let sql = "INSERT INTO Favoriten(user, Favouritenbeschreibung, Favoritenquery)VALUES('" + user + "', '" + beschreibung + "', '" + favoritenquery + "');";
 
-    connection.connect(function(err){
-        if(err){
+    connection.connect(function (err) {
+        if (err) {
+            console.log(err.message);
+        }
+
+        connection.query(sql, function (err, results, _) {
+            if (err) {
+                console.log(err.message);
+            }
+
+            return results;
+        });
+    });
+}
+
+getUsername = function getUsername(userid) {
+    let sql = "SELECT user FROM User WHERE id=" + userid + ";";
+
+    connection.connect(function (err) {
+        if (err) {
+            console.log(err.message);
+        }
+
+        connection.query(sql, function (err, results, _) {
+            if (err) {
+                console.log(err);
+            }
+
+            return results;
+
+        });
+
+    });
+}
+
+//Random Username wird gespeichert
+addUser = function addUser(username) {
+    let sql = "INSERT INTO User(user) VALUES('" + username + "');";
+    connection.connect(function (err) {
+        if (err) {
+            console.log(err.message);
+        }
+        connection.query(sql, function (err, results, _) {
+            if (err) {
+                console.log(err.message);
+            }
+        });
+    });
+}
+
+updateAnzeigename = function updateAnzeigename(usercookie, anzeigename) {
+    let sql = "Update User set anzeigename = '" + anzeigename + "' where user = '" + usercookie + "';";
+    connection.connect(function (err) {
+        if (err) {
+            console.log(err.message);
+        }
+        connection.query(sql, function (err, results, _) {
+            if (err) {
+                console.log(err.message);
+            }
+        });
+    });
+}
+
+getKommentare = function getKommentare() {
+    let sql = "SELECT * FROM Kommentare;";
+
+    connection.connect(function (err) {
+        if (err) {
+            console.log(err.message);
+        }
+
+        connection.query(sql, function (err, results, _) {
+            if (err) {
+                console.log(err.message);
+            }
+
+            return results;
+        });
+    });
+}
+
+setKommentar = function setKommentar(user, kommentar) {
+    let sql = "INSERT INTO Kommentare(user, Kommentar) VALUES('" + user + "','" + kommentar + "');";
+    connection.connect(function (err) {
+        if (err) {
             console.log(err);
         }
 
-        connection.query(sql, function(err, results, _){
-            if(err){
+        connection.query(sql, function (err, results, _) {
+            if (err) {
+                console.log(err);
+            }
+            return results;
+        });
+
+    });
+}
+
+//Eigene Table
+getBeschreibung = function getBeschreibung(name) {
+    let sql = "SELECT Beschreibung FROM Portale WHERE name = '" + name + "'";
+
+    connection.connect(function (err) {
+        if (err) {
+            console.log(err.message);
+        }
+
+        connection.query(sql, function (err, results, _) {
+            if (err) {
+                console.log(err.message);
+            }
+
+            return results;
+        });
+    });
+}
+
+getAllFavoriten = function getAllFavoriten(user) {
+    let sql = "SELECT * FROM Favoriten WHERE user='" + user + "';";
+
+    connection.connect(function (err) {
+        if (err) {
+            console.log(err);
+        }
+
+        connection.query(sql, function (err, results, _) {
+            if (err) {
                 console.log(err);
             }
 
             return results;
         });
     });
-    }
+}
 
 
 
+
+module.exports = { generateDatabase, getFavorite, setFavorite, getUsername, addUser, updateAnzeigename, getKommentare, setKommentar, getBeschreibung, getAllFavoriten }

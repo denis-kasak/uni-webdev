@@ -1,6 +1,4 @@
 //import {connectToDatabase} from './connection';
-
-
 const express = require("express");
 const cookieParser = require("cookie-parser");
 var bodyParser = require('body-parser');
@@ -8,11 +6,10 @@ const { v4: uuid } = require("uuid");
 const app = express();
 const sqlmodule = require("./sql-module");
 var basepath = __dirname.replace("\server","\html");
+
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static('uni-webdev'));
-
-sqlmodule.generateDatabase();
 
 app.use(express.static("Webentwicklung"));
 app.get('/', (req, res) => {
