@@ -1,0 +1,146 @@
+<html>
+
+<head>
+    <link rel="stylesheet" href="/css/home.css">
+</head>
+
+<body>
+    <img src="/images/logo.png">
+    <h1><span>Vergleich 24 - das Vergleichsportal für Vergleichsportale</span></h1>
+    <div>
+        <h3><span>Zu vergleichende Vergleichsportale:</span></h3>
+        <ul>
+            <li>Check24</li>
+            <li>Verifox</li>
+            <li>Idealo</li>
+            <li>Airbnb</li>
+            <li>Billiger.de</li>
+            <li>Vergleich.org</li>
+        </ul>
+        <h3><span>Kategorien der Vergleichportale:</span></h3>
+        <table>
+            <tr>
+                <th>Anbieter</th>
+                <th>Kategorien</th>
+            </tr>
+            <tr>
+                <td>Check24</td>
+                <td>Handy, Strom, Hotel, Flüge, DSL</td>
+            </tr>
+            <tr>
+                <td>Verifox</td>
+                <td>Strom, DSL, Handy, Versicherung</td>
+            </tr>
+            <tr>
+                <td>Idealo</td>
+                <td>Produkte, Flüge, Hotel</td>
+            </tr>
+            <tr>
+                <td>Airbnb</td>
+                <td>Flüge, Hotel</td>
+            </tr>
+            <tr>
+                <td>Billiger.de</td>
+                <td>Strom, DSL, Handy, Versicherung</td>
+            </tr>
+            <tr>
+                <td>Vergleich.org</td>
+                <td>Elektronik, Haushaltsgeräte, Sport und Freizeit, Gesundheit und Beauty</td>
+            </tr>
+        </table>
+    </div>
+    <form>
+        <h2><span>Schnellsuche</span></h2>
+        <div class="filter-header">
+            <label for="Kategorie">Kategorie: </label>
+            <select name="Kategorie">
+                <option>Hardware</option>
+                <option>Software</option>
+                <option>Gesamtsysteme</option>
+                <option>Elektrobauteile</option>
+            </select><br>
+            <label for="Sortieren nach">Sortieren nach:</label>
+            <select name="Sortieren nach">
+                <option>Preis aufsteigend</option>
+                <option>Preis absteigend</option>
+                <option>Am Besten bewertet</option>
+                <option>Neu</option>
+            </select> <br>
+            <input type="submit" value="Suchen" />
+        </div>
+    </form>
+    <div class="anbieter-container">
+        <div class="anbieter" id="check24">
+            <h2><span>
+                Check24
+            </span></h2>
+            <p>Vergleich.org ist eine Online-Plattform, die Verbrauchern dabei hilft, die besten Produkte in
+                verschiedenen Kategorien zu finden. Die Seite bietet eine breite Palette von Kategorien, darunter
+                Elektronik, Haushaltsgeräte, Sport und Freizeit, Gesundheit und Beauty sowie viele andere.</p>
+        </div>
+        <div class="anbieter" id="verifox">
+            <h2><span>
+                Verifox
+            </span></h2>
+            <p>Verifox ist ein Online-Vergleichsportal für Strom, DSL, Handy und Versicherungen. Das Portal
+                bietet eine breite Palette von Produkten und Dienstleistungen, die von verschiedenen Anbietern
+                angeboten werden. Verifox ist ein unabhängiges Portal, das von der Verifox GmbH betrieben wird.</p>
+        </div>
+        <div class="anbieter" id="idealo">
+            <h2><span>
+                Idealo
+            </span></h2>
+            <p>Idealo ist ein Online-Vergleichsportal für Produkte, Flüge und Hotels. Das Portal bietet eine
+                breite Palette von Produkten und Dienstleistungen, die von verschiedenen Anbietern angeboten werden.
+                Idealo ist ein unabhängiges Portal, das von der Idealo GmbH betrieben wird.</p>
+        </div>
+        <div class="anbieter" id="airbnb">
+            <h2><span>
+                Airbnb
+            </span></h2>
+            <p>Airbnb ist ein Online-Vergleichsportal für Flüge und Hotels. Das Portal bietet eine breite Palette
+                von Produkten und Dienstleistungen, die von verschiedenen Anbietern angeboten werden. Airbnb ist ein
+                unabhängiges Portal, das von der Airbnb GmbH betrieben wird.</p>
+        </div>
+        <div class="anbieter" id="billiger">
+            <h2><span>
+                Billiger.de
+            </span></h2>
+            <p>Billiger.de ist ein Online-Vergleichsportal für Strom, DSL, Handy und Versicherungen. Das Portal
+                bietet eine breite Palette von Produkten und Dienstleistungen, die von verschiedenen Anbietern
+                angeboten werden. Billiger.de ist ein unabhängiges Portal, das von der Billiger.de GmbH betrieben
+                wird.</p>
+        </div>
+        <div class="anbieter" id="vergleich">
+            <h2><span>
+                Vergleich.org
+            </span></h2>
+            <p>Vergleich.org ist eine Online-Plattform, die Verbrauchern dabei hilft, die besten Produkte in
+                verschiedenen Kategorien zu finden. Die Seite bietet eine breite Palette von Kategorien, darunter
+                Elektronik, Haushaltsgeräte, Sport und Freizeit, Gesundheit und Beauty sowie viele andere.</p>
+        </div>
+    </div>
+    <div class="kommentare">
+        <!-- textarea -->
+        <h2><span>Kommentare</span></h2>
+        <form>
+            <textarea name="Kommentar" rows="4" cols="50"></textarea>
+            <input type="submit" value="Absenden" />
+        </form>
+        <div class="kommentar">
+            <h3>Max Mustermann</h3>
+            <p>Das ist ein Kommentar</p>
+        </div>
+        <div class="kommentar">
+            <h3>Max Mustermann</h3>
+            <p>Das ist ein Kommentar</p>
+        </div>
+        <div class="kommentar">
+            <h3>Max Mustermann</h3>
+            <p>Das ist ein Kommentar</p>
+        </div>
+    </div>
+    <a href="./impressum.html">Impressum</a>
+</body>
+
+</html>
