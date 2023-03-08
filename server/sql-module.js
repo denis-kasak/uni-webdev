@@ -168,4 +168,4 @@ getAllFavoriten = function getAllFavoriten(user) {
 
 
 
-module.exports = { generateDatabase, getFavorite, setFavorite, getUsername, addUser, updateAnzeigename, getKommentare, setKommentar, getBeschreibung, getAllFavoriten }
+module.exports = { getFavorite, setFavorite, getUsername, addUser, updateAnzeigename, getKommentare, setKommentar, getBeschreibung, getAllFavoriten }

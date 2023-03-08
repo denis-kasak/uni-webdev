@@ -5,36 +5,35 @@ var bodyParser = require('body-parser');
 const { v4: uuid } = require("uuid");
 const app = express();
 const sqlmodule = require("./sql-module");
-var basepath = __dirname.replace("\server","\html");
 
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(express.static('uni-webdev'));
+
 
 app.use(express.static("Webentwicklung"));
 app.get('/', (req, res) => {
-	if(req.cookies.user === undefined){
+	if (req.cookies.user === undefined) {
 		const d = new Date();
-    	d.setTime(d.getTime() + (20*365*24*60*60*1000));
+		d.setTime(d.getTime() + (20 * 365 * 24 * 60 * 60 * 1000));
 		var userid = uuid()
-		res.cookie("user", userid , { expires: d, httpOnly: true });
+		res.cookie("user", userid, { expires: d, httpOnly: true });
 		sqlmodule.addUser(userid);
 	}
 	/*if(req.cookies.session === undefined){
 		res.cookie("session", "active session by" + req.cookies.user);
-	}*/	
-		console.log(basepath);
-		console.log(__dirname);
-	    res.sendFile('/index.html', {root: basepath });
+	}*/
+	res.sendFile('/html/index.html', { root: 'static' });
 });
 
 app.get('/impressum', (req, res) => {
-	if(req.cookies.user === undefined){
+	if (req.cookies.user === undefined) {
 		res.redirect('/');
-	}else{
-		res.sendFile('/impressum.html', {root: basepath });
+	} else {
+		res.sendFile('/html/impressum.html', { root: 'static' });
 	}
 });
+
+app.use(express.static('static'));
 
 app.listen(8081);
 /*var users = [];
