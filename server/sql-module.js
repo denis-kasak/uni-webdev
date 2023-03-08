@@ -7,7 +7,28 @@ let connection = mysql.createConnection({
     database: 'vergleich24'
 });
 
-getFavorite = function getFavorite(favId) {
+async function getUserid(usercookie) {//return userid als integer
+    return new Promise((resolve, reject) => {
+        let query = "SELECT id FROM User WHERE user='" + usercookie + "';";
+
+        connection.connect(function (err) {
+            if (err) {
+                reject(err.message);
+            }
+
+            connection.query(query, function (err, results, _) {
+                if (err) {
+                    reject(err.message);
+                }
+
+                resolve(results[0].id);
+            });
+        });
+    });
+}
+
+
+function getFavorite(favId) {
     let sql = "SELECT * FROM Favoriten WHERE id=" + favId + ";";
 
     connection.connect(sql, function (err) {
@@ -26,7 +47,7 @@ getFavorite = function getFavorite(favId) {
 }
 
 //User = UserCoockie
-setFavorite = function setFavorite(user, beschreibung, favoritenquery) {
+function setFavorite(user, beschreibung, favoritenquery) {
     let sql = "INSERT INTO Favoriten(user, Favouritenbeschreibung, Favoritenquery)VALUES('" + user + "', '" + beschreibung + "', '" + favoritenquery + "');";
 
     connection.connect(function (err) {
@@ -44,7 +65,7 @@ setFavorite = function setFavorite(user, beschreibung, favoritenquery) {
     });
 }
 
-getUsername = function getUsername(userid) {
+function getUsername(userid) {
     let sql = "SELECT user FROM User WHERE id=" + userid + ";";
 
     connection.connect(function (err) {
@@ -65,7 +86,7 @@ getUsername = function getUsername(userid) {
 }
 
 //Random Username wird gespeichert
-addUser = function addUser(username) {
+function addUser(username) {
     let sql = "INSERT INTO User(user) VALUES('" + username + "');";
     connection.connect(function (err) {
         if (err) {
@@ -79,7 +100,7 @@ addUser = function addUser(username) {
     });
 }
 
-updateAnzeigename = function updateAnzeigename(usercookie, anzeigename) {
+function updateAnzeigename(usercookie, anzeigename) {
     let sql = "Update User set anzeigename = '" + anzeigename + "' where user = '" + usercookie + "';";
     connection.connect(function (err) {
         if (err) {
@@ -93,25 +114,28 @@ updateAnzeigename = function updateAnzeigename(usercookie, anzeigename) {
     });
 }
 
-getKommentare = function getKommentare() {
-    let sql = "SELECT * FROM Kommentare;";
+function getKommentare() {
+    return new Promise((resolve, reject) => {
+        let sql = "SELECT * FROM Kommentare;";
 
-    connection.connect(function (err) {
-        if (err) {
-            console.log(err.message);
-        }
-
-        connection.query(sql, function (err, results, _) {
+        connection.connect(function (err) {
             if (err) {
-                console.log(err.message);
+                reject(err.message);
             }
 
-            return results;
+            connection.query(sql, function (err, results, _) {
+                if (err) {
+                    reject(err.message);
+                }
+
+                resolve(results);
+            });
         });
     });
+
 }
 
-setKommentar = function setKommentar(user, kommentar) {
+function addKommentar(user, kommentar) {
     let sql = "INSERT INTO Kommentare(user, Kommentar) VALUES('" + user + "','" + kommentar + "');";
     connection.connect(function (err) {
         if (err) {
@@ -129,7 +153,7 @@ setKommentar = function setKommentar(user, kommentar) {
 }
 
 //Eigene Table
-getBeschreibung = function getBeschreibung(name) {
+function getBeschreibung(name) {
     let sql = "SELECT Beschreibung FROM Portale WHERE name = '" + name + "'";
 
     connection.connect(function (err) {
@@ -147,7 +171,7 @@ getBeschreibung = function getBeschreibung(name) {
     });
 }
 
-getAllFavoriten = function getAllFavoriten(user) {
+function getAllFavoriten(user) {
     let sql = "SELECT * FROM Favoriten WHERE user='" + user + "';";
 
     connection.connect(function (err) {
@@ -168,4 +192,4 @@ getAllFavoriten = function getAllFavoriten(user) {
 
 
 
-module.exports = { getFavorite, setFavorite, getUsername, addUser, updateAnzeigename, getKommentare, setKommentar, getBeschreibung, getAllFavoriten }
+module.exports = { getFavorite, setFavorite, getUsername, addUser, updateAnzeigename, getKommentare, addKommentar, getBeschreibung, getAllFavoriten, getUserid }

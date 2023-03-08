@@ -6,7 +6,21 @@ const app = express();
 const sqlmodule = require("./sql-module");
 
 app.use(cookieParser());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
+app.post('/api/comments', async (req, res) => {
+	res = initUser(req, res);
+	const userid = await sqlmodule.getUserid(req.cookies.user);
+	sqlmodule.addKommentar(userid, req.body.comment);
+	res.send("OK");
+});
+
+app.get('/api/comments', async (req, res) => {
+	res = initUser(req, res);
+	const userid = await sqlmodule.getUserid(req.cookies.user);
+	const comments = await sqlmodule.getKommentare(userid);
+	res.send(comments);
+});
 
 app.get('/', (req, res) => {
 	res = initUser(req, res);
@@ -14,12 +28,12 @@ app.get('/', (req, res) => {
 });
 
 app.get('/index.html', (req, res) => {
-	initUser(req);
+	res = initUser(req);
 	res.sendFile('/html/index.html', { root: 'static' });
 });
 
 app.get('/impressum', (req, res) => {
-	initUser(req);
+	res = initUser(req);
 	res.sendFile('/html/impressum.html', { root: 'static' });
 });
 

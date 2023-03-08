@@ -2,9 +2,10 @@
 
 <head>
     <link rel="stylesheet" href="/css/home.css">
+    <script src="/js/home.js"></script> 
 </head>
 
-<body>
+<body onload="onload()">
     <img src="/images/logo.png">
     <h1><span>Vergleich 24 - das Vergleichsportal für Vergleichsportale</span></h1>
     <div>
@@ -124,7 +125,8 @@
         <!-- textarea -->
         <h2><span>Kommentare</span></h2>
         <textarea id="commentTextarea" name="Kommentar" rows="4" cols="50"></textarea>
-        <button onclick="createComment()">Speichern</button>
+        <button id="commentBtn">Speichern</button>
+        <div id="commentContainer"></div>
     </div>
     <a href="./impressum.html">Impressum</a>
 </body>

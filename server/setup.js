@@ -5,8 +5,8 @@ generateDatabase();
 function generateDatabase() {
 
     let createDatabase = "Create Database vergleich24;";
-    let createKommentare = "Create Table Kommentare  ( user varchar(3000), Kommentar varchar(2000));";
-    let createFavoriten = "Create Table Favoriten(id int auto_increment primary key, user varchar(3000),Favouritenbeschreibung varchar(1000) ,Favoritenquery varchar(2000));";
+    let createKommentare = "Create Table Kommentare  ( user int, Kommentar varchar(2000));";
+    let createFavoriten = "Create Table Favoriten(id int auto_increment primary key, user int,Favoritenbeschreibung varchar(1000) ,Favoritenquery varchar(2000));";
     let createUser = "Create table User (id int auto_increment primary key,user varchar(3000), anzeigename varchar(3000) );";
     let createPortal = "Create table Portale (name varchar(3000), Beschreibung varchar(3000));";
 
