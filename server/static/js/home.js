@@ -52,9 +52,9 @@ async function updateComments() {
     comments.forEach(comment => {
         console.log(comment)
         let commentUser = document.createElement("h3");
-        commentUser.innerHTML = comment.user;
+        commentUser.innerHTML = comment.userid;
         let commentDiv = document.createElement("p");
-        commentDiv.innerHTML = comment.Kommentar;
+        commentDiv.innerHTML = comment.kommentar;
         commentContainer.appendChild(commentUser);
         commentContainer.appendChild(commentDiv);
     })

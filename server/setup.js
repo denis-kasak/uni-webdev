@@ -4,11 +4,10 @@ generateDatabase();
 
 function generateDatabase() {
 
-    let createDatabase = "Create Database vergleich24;";
-    let createKommentare = "Create Table Kommentare  ( user int, Kommentar varchar(2000));";
-    let createFavoriten = "Create Table Favoriten(id int auto_increment primary key, user int,Favoritenbeschreibung varchar(1000) ,Favoritenquery varchar(2000));";
-    let createUser = "Create table User (id int auto_increment primary key,user varchar(3000), anzeigename varchar(3000) );";
-    let createPortal = "Create table Portale (name varchar(3000), Beschreibung varchar(3000));";
+    const createDatabase = "CREATE DATABASE Vergleich24;";
+    const createKommentare = "CREATE TABLE Kommentare ( userid VARCHAR(100), kommentar VARCHAR(2000));";
+    const createFavoriten = "CREATE TABLE Favoriten (id INT AUTO_INCREMENT PRIMARY KEY, userid VARCHAR(100), beschreibung VARCHAR(1000), query VARCHAR(2000));";
+    const createUser = "CREATE TABLE User (id VARCHAR(100) PRIMARY KEY, username VARCHAR(3000));";
 
     let connection1 = mysql.createConnection({
         host: 'localhost',
@@ -17,14 +16,16 @@ function generateDatabase() {
     });
 
     connection1.connect(function (err) {
+        console.log("Connecting to the mysql server...");
         if (err) {
             return console.error('error ' + err.message);
         }
         console.log("Connected to the mysql server.");
 
-        
+
 
         connection1.query(createDatabase, function (err, results, fields) {
+            console.log("Creating database...")
             if (err) {
                 console.log(err.message);
             }
@@ -34,36 +35,34 @@ function generateDatabase() {
                 host: 'localhost',
                 user: 'root',
                 password: 'passwort',
-                database: 'vergleich24'
+                database: 'Vergleich24'
             });
 
             connection2.query(createKommentare, function (err, results, fields) {
+                console.log("Creating Kommentare...")
                 if (err) {
                     console.log(err.message);
                 }
+                console.log("Kommentare created");
             });
-            console.log("Kommentare created");
+
 
             connection2.query(createFavoriten, function (err, results, fields) {
+                console.log("Creating Favoriten...")
                 if (err) {
                     console.log(err.message);
                 }
+                console.log("Favoriten created");
             });
-            console.log("Favoriten created");
+
 
             connection2.query(createUser, function (err, results, fields) {
+                console.log("Creating User...")
                 if (err) {
                     console.log(err.message);
                 }
+                console.log("User created");
             });
-            console.log("User created");
-
-            connection2.query(createPortal, function (err, results, fields) {
-                if (err) {
-                    console.log(err.message);
-                }
-            });
-            console.log("Portale created");
         });
     });
 }
