@@ -2,9 +2,10 @@
 
 <head>
     <link rel="stylesheet" href="/css/home.css">
+    <script src="/js/home.js"></script> 
 </head>
 
-<body>
+<body onload="onload()">
     <img src="/images/logo.png">
     <h1><span>Vergleich 24 - das Vergleichsportal für Vergleichsportale</span></h1>
     <div>
@@ -72,40 +73,40 @@
     <div class="anbieter-container">
         <div class="anbieter" id="check24">
             <h2><span>
-                Check24
-            </span></h2>
+                    Check24
+                </span></h2>
             <p>Vergleich.org ist eine Online-Plattform, die Verbrauchern dabei hilft, die besten Produkte in
                 verschiedenen Kategorien zu finden. Die Seite bietet eine breite Palette von Kategorien, darunter
                 Elektronik, Haushaltsgeräte, Sport und Freizeit, Gesundheit und Beauty sowie viele andere.</p>
         </div>
         <div class="anbieter" id="verifox">
             <h2><span>
-                Verifox
-            </span></h2>
+                    Verifox
+                </span></h2>
             <p>Verifox ist ein Online-Vergleichsportal für Strom, DSL, Handy und Versicherungen. Das Portal
                 bietet eine breite Palette von Produkten und Dienstleistungen, die von verschiedenen Anbietern
                 angeboten werden. Verifox ist ein unabhängiges Portal, das von der Verifox GmbH betrieben wird.</p>
         </div>
         <div class="anbieter" id="idealo">
             <h2><span>
-                Idealo
-            </span></h2>
+                    Idealo
+                </span></h2>
             <p>Idealo ist ein Online-Vergleichsportal für Produkte, Flüge und Hotels. Das Portal bietet eine
                 breite Palette von Produkten und Dienstleistungen, die von verschiedenen Anbietern angeboten werden.
                 Idealo ist ein unabhängiges Portal, das von der Idealo GmbH betrieben wird.</p>
         </div>
         <div class="anbieter" id="airbnb">
             <h2><span>
-                Airbnb
-            </span></h2>
+                    Airbnb
+                </span></h2>
             <p>Airbnb ist ein Online-Vergleichsportal für Flüge und Hotels. Das Portal bietet eine breite Palette
                 von Produkten und Dienstleistungen, die von verschiedenen Anbietern angeboten werden. Airbnb ist ein
                 unabhängiges Portal, das von der Airbnb GmbH betrieben wird.</p>
         </div>
         <div class="anbieter" id="billiger">
             <h2><span>
-                Billiger.de
-            </span></h2>
+                    Billiger.de
+                </span></h2>
             <p>Billiger.de ist ein Online-Vergleichsportal für Strom, DSL, Handy und Versicherungen. Das Portal
                 bietet eine breite Palette von Produkten und Dienstleistungen, die von verschiedenen Anbietern
                 angeboten werden. Billiger.de ist ein unabhängiges Portal, das von der Billiger.de GmbH betrieben
@@ -113,8 +114,8 @@
         </div>
         <div class="anbieter" id="vergleich">
             <h2><span>
-                Vergleich.org
-            </span></h2>
+                    Vergleich.org
+                </span></h2>
             <p>Vergleich.org ist eine Online-Plattform, die Verbrauchern dabei hilft, die besten Produkte in
                 verschiedenen Kategorien zu finden. Die Seite bietet eine breite Palette von Kategorien, darunter
                 Elektronik, Haushaltsgeräte, Sport und Freizeit, Gesundheit und Beauty sowie viele andere.</p>
@@ -123,22 +124,9 @@
     <div class="kommentare">
         <!-- textarea -->
         <h2><span>Kommentare</span></h2>
-        <form>
-            <textarea name="Kommentar" rows="4" cols="50"></textarea>
-            <input type="submit" value="Absenden" />
-        </form>
-        <div class="kommentar">
-            <h3>Max Mustermann</h3>
-            <p>Das ist ein Kommentar</p>
-        </div>
-        <div class="kommentar">
-            <h3>Max Mustermann</h3>
-            <p>Das ist ein Kommentar</p>
-        </div>
-        <div class="kommentar">
-            <h3>Max Mustermann</h3>
-            <p>Das ist ein Kommentar</p>
-        </div>
+        <textarea id="commentTextarea" name="Kommentar" rows="4" cols="50"></textarea>
+        <button id="commentBtn">Speichern</button>
+        <div id="commentContainer"></div>
     </div>
     <a href="./impressum.html">Impressum</a>
 </body>
