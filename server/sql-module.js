@@ -50,7 +50,7 @@ function getUsername(userid) {
             connection.query(query , function (err, results, _) {
                 if (err) reject(err);
 
-                resolve(results);
+                resolve(results[0]);
             });
         });
     });

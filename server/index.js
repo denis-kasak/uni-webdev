@@ -43,10 +43,10 @@ app.get('/api/comments', async (req, res) => {
 		for (var comment of comments){ 
 			if(comment.userid !== req.cookies.userid){
 				var user = await sqlmodule.getUsername(comment.userid);
-				console.log(user[0].username);
-				if ( user[0].username !== null ){
-					console.log(user[0].username);
-					comment.userid = user[0].username;
+				console.log(user);
+				if ( user.username !== null ){
+					console.log(user.username);
+					comment.userid = user.username;
 				}else{
 					let userid = await sqlmodule.getUserdbid(comment.userid);
 					comment.userid = "Anonymer Nutzer " + userid.dbid;	
