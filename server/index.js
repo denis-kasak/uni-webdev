@@ -38,7 +38,25 @@ app.post('/api/comments', async (req, res) => {
 
 app.get('/api/comments', async (req, res) => {
 	try {
-		const comments = await sqlmodule.getKommentare(req.userid);
+		let comments = await sqlmodule.getKommentare();
+		console.log(comments);
+		for (var comment of comments){ 
+			if(comment.userid !== req.cookies.userid){
+				var user = await sqlmodule.getUsername(comment.userid);
+				console.log(user);
+				if ( user.username !== null ){
+					console.log(user.username);
+					comment.userid = user.username;
+				}else{
+					let userid = await sqlmodule.getUserdbid(comment.userid);
+					comment.userid = "Anonymer Nutzer " + userid.dbid;	
+				}
+			}else{
+				
+				comment.userid = "Ich";
+			}
+			console.log(comment);
+		}
 		res.status(200).send(comments);
 	} catch (error) {
 		console.log(error);

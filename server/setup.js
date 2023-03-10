@@ -7,7 +7,7 @@ function generateDatabase() {
     const createDatabase = "CREATE DATABASE Vergleich24;";
     const createKommentare = "CREATE TABLE Kommentare ( userid VARCHAR(100), kommentar VARCHAR(2000));";
     const createFavoriten = "CREATE TABLE Favoriten (id INT AUTO_INCREMENT PRIMARY KEY, userid VARCHAR(100), beschreibung VARCHAR(1000), query VARCHAR(2000));";
-    const createUser = "CREATE TABLE User (id VARCHAR(100) PRIMARY KEY, username VARCHAR(3000));";
+    const createUser = "CREATE TABLE User (dbid INT AUTO_INCREMENT PRIMARY KEY, id VARCHAR(100) , username VARCHAR(3000));";
 
     let connection1 = mysql.createConnection({
         host: 'localhost',
