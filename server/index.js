@@ -1,4 +1,3 @@
-//import {connectToDatabase} from './connection';
 const express = require("express");
 const cookieParser = require("cookie-parser");
 var bodyParser = require('body-parser');
@@ -7,66 +6,61 @@ const app = express();
 const sqlmodule = require("./sql-module");
 
 app.use(cookieParser());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
-
-app.use(express.static("Webentwicklung"));
-app.get('/', (req, res) => {
-	if (req.cookies.user === undefined) {
+const initUser = async function initUser(req, res, next) {
+	//setzt die userid in req.userid. Falls es keine gibt, dann wird eine erstellt
+	if (req.cookies.userid === undefined) {
 		const d = new Date();
 		d.setTime(d.getTime() + (20 * 365 * 24 * 60 * 60 * 1000));
-		var userid = uuid()
-		res.cookie("user", userid, { expires: d, httpOnly: true });
-		sqlmodule.addUser(userid);
+		const userid = uuid()
+		res.cookie("userid", userid, { expires: d, httpOnly: true });
+		await sqlmodule.addUser(userid);
+		req.userid = userid;
+	}else{
+		req.userid = req.cookies.userid;
 	}
-	/*if(req.cookies.session === undefined){
-		res.cookie("session", "active session by" + req.cookies.user);
-	}*/
+	next();
+}
+
+app.use(initUser);
+
+app.post('/api/comments', async (req, res) => {
+	try {
+		await sqlmodule.addKommentar(req.userid, req.body.comment);
+		res.status(200).send("OK");
+	} catch (error) {
+		console.log(error);
+		res.status(400).send("Error");
+	}
+
+});
+
+app.get('/api/comments', async (req, res) => {
+	try {
+		const comments = await sqlmodule.getKommentare(req.userid);
+		res.status(200).send(comments);
+	} catch (error) {
+		console.log(error);
+		res.status(400).send("Error");
+	}
+});
+
+app.get('/', (req, res) => {
+	res.sendFile('/html/index.html', { root: 'static' });
+});
+
+app.get('/index.html', (req, res) => {
 	res.sendFile('/html/index.html', { root: 'static' });
 });
 
 app.get('/impressum', (req, res) => {
-	if (req.cookies.user === undefined) {
-		res.redirect('/');
-	} else {
-		res.sendFile('/html/impressum.html', { root: 'static' });
-	}
+	res.sendFile('/html/impressum.html', { root: 'static' });
 });
 
 app.use(express.static('static'));
 
-app.listen(8081);
-/*var users = [];
-var Kommentare = [];
-var Favouriten = [];
-let Names = ["AnonymesZebra", "AnonymerGorilla", "AnonymesKänguru", "AnonymesChinchilla"];
-function createUser(){
-	var Name = Names[Math.floor(Math.random()*Names.length)];
-	var id = uuid();
-	var Username = Name + id;
-	const newUser = { id: id, Username: Username};	
-	users.push(newUser);
-}
-function createKommentar(usercookie,paramKommentar){
-	var usera = users.find((user) => user.id === paramuser);
-	var user = usera.Username;
-	const newKommentar = {id: id, Username: user,userid: usercookie, Kommentar: paramKommentar,Zeit:  Zeitstempel() }
-	Kommentare.push(newKommentar);
-}
-function Zeitstempel(){
-  var heute = new Date();
-  var Datum = heute.getDate();
-  var StundenZahl = heute.getHours();
-  var MinutenZahl = heute.getMinutes();
-  var SekundenZahl = heute.getSeconds();
-  return Datum.toString() + " " + StundenZahl.toString()+ ":" + MinutenZahl.toString() + ":" + SekundenZahl.toString;
-}
-function getKommentar(id){
-	return Kommentare.find((Kommentar) => Kommentar.id === id)
-}
-
-function getallKommentarebyUser(usercookie){
-	return Kommentare.find((Kommentar) => Kommentar.id === usercookie)
-}
-*/
+app.listen(8081, () => {
+	console.log("Server started on port 8081");
+});
 
