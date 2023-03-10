@@ -42,15 +42,34 @@ function setFavorite(userid, beschreibung, favoritenquery) {
 
 function getUsername(userid) {
     return new Promise((resolve, reject) => {
-        const query = "SELECT username FROM User WHERE id=" + userid + ";";
+        const query = "SELECT username FROM User WHERE id= '"+userid+"';";
 
         connection.connect(function (err) {
             if (err) reject(err);
 
-            connection.query(sql, function (err, results, _) {
+            connection.query(query , function (err, results, _) {
                 if (err) reject(err);
 
                 resolve(results);
+            });
+        });
+    });
+}
+
+function getUserdbid(userid) {
+    return new Promise((resolve, reject) => {
+        let query = "Select dbid from User WHERE id = ";
+        query += "'"+userid+"'";
+        query += ";";
+        console.log(query);
+        connection.connect(function (err) {
+            if (err) reject(err);
+
+            connection.query(query, function (err, results, _) {
+                if (err) reject(err);
+                let obj = results[0];
+                console.log(obj);
+                resolve(results[0]);
             });
         });
     });
@@ -97,7 +116,7 @@ function getKommentare() {
 
             connection.query(query, function (err, results, _) {
                 if (err) reject(err);
-
+                console.log(results);
                 resolve(results);
             });
         });
@@ -106,12 +125,12 @@ function getKommentare() {
 }
 
 function addKommentar(userid, kommentar) {
-    return new Promise((resolve, reject) => {
-        const query = "INSERT INTO Kommentare(userid, kommentar) VALUES('" + userid + "','" + kommentar + "');";
+       return new Promise((resolve, reject) => {
+        const sql = "INSERT INTO Kommentare(userid, kommentar) VALUES('" +userid+ "','" +kommentar+ "');";
         connection.connect(function (err) {
             if (err) reject(err);
 
-            connection.query(query, function (err, results, _) {
+            connection.query(sql, function (err, results, _) {
                 if (err) reject(err);
 
                 resolve(results);
@@ -139,4 +158,4 @@ function getAllFavoriten(userid) {
 
 
 
-module.exports = { getFavorite, setFavorite, getUsername, addUser, updateUsername, getKommentare, addKommentar, getAllFavoriten }
+module.exports = { getFavorite, setFavorite, getUsername, addUser, updateUsername, getKommentare, addKommentar, getAllFavoriten, getUserdbid }
