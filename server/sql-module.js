@@ -1,3 +1,4 @@
+const { query } = require('express');
 let mysql = require('mysql2');
 
 let connection = mysql.createConnection({
@@ -168,7 +169,35 @@ function getAllUserkommentare(userid){
     });
 }
 
+function addVisitedPage(userid, page){
+    return new Promise((resolve, reject) => {
+        const query = "INSERT INTO Pages(pagename, userid) VALUES('" +page+ "','" +userid+ "');";
+        connection.connect(function (err) {
+            if(err) reject(err);
+            connection.query(query, function (err, results, _){
+                if(err) reject(err);
+                resolve(results);
+            });
+        });
+    });
+}
+
+function getVisitedPages(userid){
+    return new Promise((resolve, reject) => {
+        const query = "SELECT pagename, COUNT(*) as page_visits_count FROM Page WHERE userid = '"+userid+"' GROUP BY pagename RDER BY page_visits_count DESC;";
+        connection.connect(function (err){
+            if(err) reject(err);
+            connection.query(query, function(err, results, _ ){
+                if(err) reject(err);
+                resolve(results);
+            });
+        });
+
+        
+    })
+}
 
 
 
-module.exports = { getFavorite, setFavorite, getUsername, addUser, updateUsername, getKommentare, addKommentar, getAllFavoriten, getUserdbid, getAllUserkommentare }
+
+module.exports = { getFavorite, setFavorite, getUsername, addUser, updateUsername, getKommentare, addKommentar, getAllFavoriten, getUserdbid, getAllUserkommentare, addVisitedPage, getVisitedPages }
