@@ -155,7 +155,20 @@ function getAllFavoriten(userid) {
     });
 }
 
+function getAllUserkommentare(userid){
+    return new Promise((resolve, reject) => {
+        const query = "SELECT kommentar FROM Kommentare WHERE userid='" + userid + "';";
+        connection.connect(function (err){
+            if(err) reject(err);
+            connection.query(query, function (err, results, _){
+                if(err) reject(err);
+                resolve(results);
+            });
+        });
+    });
+}
 
 
 
-module.exports = { getFavorite, setFavorite, getUsername, addUser, updateUsername, getKommentare, addKommentar, getAllFavoriten, getUserdbid }
+
+module.exports = { getFavorite, setFavorite, getUsername, addUser, updateUsername, getKommentare, addKommentar, getAllFavoriten, getUserdbid, getAllUserkommentare }
