@@ -1,0 +1,21 @@
+.box{
+    display: flex;
+    width: 20%;
+    height: 20%;
+    justify-content: space-around; 
+    align-items: center;
+    border: 2px solid black;
+    background-color: #E4B6FE;
+    cursor: pointer;
+    font-size: x-large;
+    font: bold;
+    color: beige;
+}
+.flex-container{
+    display:flex; 
+    justify-content: space-around; 
+    align-items: center;
+    height: 100%;
+    flex-wrap: wrap; 
+    align-content: flex-start;
+}

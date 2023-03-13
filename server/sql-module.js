@@ -1,3 +1,4 @@
+const { query } = require('express');
 let mysql = require('mysql2');
 
 let connection = mysql.createConnection({
@@ -42,15 +43,34 @@ function setFavorite(userid, beschreibung, favoritenquery) {
 
 function getUsername(userid) {
     return new Promise((resolve, reject) => {
-        const query = "SELECT username FROM User WHERE id=" + userid + ";";
+        const query = "SELECT username FROM User WHERE id= '"+userid+"';";
 
         connection.connect(function (err) {
             if (err) reject(err);
 
-            connection.query(sql, function (err, results, _) {
+            connection.query(query , function (err, results, _) {
                 if (err) reject(err);
 
-                resolve(results);
+                resolve(results[0]);
+            });
+        });
+    });
+}
+
+function getUserdbid(userid) {
+    return new Promise((resolve, reject) => {
+        let query = "Select dbid from User WHERE id = ";
+        query += "'"+userid+"'";
+        query += ";";
+        console.log(query);
+        connection.connect(function (err) {
+            if (err) reject(err);
+
+            connection.query(query, function (err, results, _) {
+                if (err) reject(err);
+                let obj = results[0];
+                console.log(obj);
+                resolve(results[0]);
             });
         });
     });
@@ -97,7 +117,7 @@ function getKommentare() {
 
             connection.query(query, function (err, results, _) {
                 if (err) reject(err);
-
+                console.log(results);
                 resolve(results);
             });
         });
@@ -106,12 +126,12 @@ function getKommentare() {
 }
 
 function addKommentar(userid, kommentar) {
-    return new Promise((resolve, reject) => {
-        const query = "INSERT INTO Kommentare(userid, kommentar) VALUES('" + userid + "','" + kommentar + "');";
+       return new Promise((resolve, reject) => {
+        const sql = "INSERT INTO Kommentare(userid, kommentar) VALUES('" +userid+ "','" +kommentar+ "');";
         connection.connect(function (err) {
             if (err) reject(err);
 
-            connection.query(query, function (err, results, _) {
+            connection.query(sql, function (err, results, _) {
                 if (err) reject(err);
 
                 resolve(results);
@@ -136,7 +156,48 @@ function getAllFavoriten(userid) {
     });
 }
 
+function getAllUserkommentare(userid){
+    return new Promise((resolve, reject) => {
+        const query = "SELECT kommentar FROM Kommentare WHERE userid='" + userid + "';";
+        connection.connect(function (err){
+            if(err) reject(err);
+            connection.query(query, function (err, results, _){
+                if(err) reject(err);
+                resolve(results);
+            });
+        });
+    });
+}
+
+function addVisitedPage(userid, page){
+    return new Promise((resolve, reject) => {
+        const query = "INSERT INTO Pages(pagename, userid) VALUES('" +page+ "','" +userid+ "');";
+        connection.connect(function (err) {
+            if(err) reject(err);
+            connection.query(query, function (err, results, _){
+                if(err) reject(err);
+                resolve(results);
+            });
+        });
+    });
+}
+
+function getVisitedPages(userid){
+    return new Promise((resolve, reject) => {
+        const query = "SELECT pagename, COUNT(*) as page_visits_count FROM Pages WHERE userid = '"+userid+"' GROUP BY pagename ORDER BY page_visits_count DESC;";
+        connection.connect(function (err){
+            if(err) reject(err);
+            connection.query(query, function(err, results, _ ){
+                if(err) reject(err);
+                resolve(results);
+            });
+        });
+
+        
+    })
+}
 
 
 
-module.exports = { getFavorite, setFavorite, getUsername, addUser, updateUsername, getKommentare, addKommentar, getAllFavoriten }
+
+module.exports = { getFavorite, setFavorite, getUsername, addUser, updateUsername, getKommentare, addKommentar, getAllFavoriten, getUserdbid, getAllUserkommentare, addVisitedPage, getVisitedPages }

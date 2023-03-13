@@ -36,27 +36,88 @@ app.post('/api/comments', async (req, res) => {
 
 });
 
+app.post('/api/mostvisited', async (req, res) => {
+	try{
+		console.log(req.cookies.lastvisited);
+		await sqlmodule.addVisitedPage(req.cookies.userid, req.cookies.lastvisited);
+		res.clearCookie('lastvisited');
+		res.status(200).send("OK");
+	} catch (error){
+		console.log(error);
+		res.status(400).send("Error");
+	}
+});
+
 app.get('/api/comments', async (req, res) => {
 	try {
-		const comments = await sqlmodule.getKommentare(req.userid);
+		let comments = await sqlmodule.getKommentare();
+		console.log(comments);
+		for (var comment of comments){ 
+			if(comment.userid !== req.cookies.userid){
+				var user = await sqlmodule.getUsername(comment.userid);
+				console.log(user);
+				if ( user.username !== null ){
+					console.log(user.username);
+					comment.userid = user.username;
+				}else{
+					let userid = await sqlmodule.getUserdbid(comment.userid);
+					comment.userid = "Anonymer Nutzer " + userid.dbid;	
+				}
+			}else{
+				
+				comment.userid = "Ich";
+			}
+			console.log(comment);
+		}
 		res.status(200).send(comments);
 	} catch (error) {
 		console.log(error);
 		res.status(400).send("Error");
 	}
 });
-
+app.get('/api/mycomments' , async(req,res) => {
+	try{
+		let comments = await sqlmodule.getAllUserkommentare(req.cookies.userid);
+		res.status(200).send(comments);
+	}
+	catch(error){
+		console.log(error);
+		res.status(400).send("Error");
+	}
+})
+app.get('/api/mostvisited' , async(req, res) => {
+	try{
+		let mostvisited = await sqlmodule.getVisitedPages(req.userid);
+		console.log(mostvisited);
+		for (var site in mostvisited){}
+		res.status(200).send(mostvisited);
+	}catch(error){
+		console.log(error);
+		res.status(400).send("Meist besuchte Seiten können nicht geladen werden.");	
+	}
+});
 app.get('/', (req, res) => {
+	res.cookie("lastvisited","/index.html",{httpOnly: true, SameSite: "None"});
 	res.sendFile('/html/index.html', { root: 'static' });
 });
 
-app.get('/index.html', (req, res) => {
+app.get('/index', (req, res) => {
+	res.cookie("lastvisited","/index");
 	res.sendFile('/html/index.html', { root: 'static' });
 });
 
 app.get('/impressum', (req, res) => {
+	res.cookie("lastvisited","/impressum");
 	res.sendFile('/html/impressum.html', { root: 'static' });
 });
+app.get('/portale', (req, res) =>{
+	res.cookie("lastvisited","/portale");
+	res.sendFile('/html/portale.html', {root: 'static'})
+});
+app.get('/profil', (req, res) => {
+	res.cookie("lastvisited","/profil");
+	res.sendFile('/html/profil.html', {root: 'static'})
+})
 
 app.use(express.static('static'));
 
