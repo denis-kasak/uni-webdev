@@ -1,0 +1,35 @@
+version: "3.8"
+
+services:
+    mysql:
+        image: mysql:8.0.32
+        container_name: mysql
+        restart: always
+        environment:
+            MYSQL_ALLOW_EMPTY_PASSWORD: yes
+        ports:
+            - 3306:3306
+        command: --init-file /data/application/init.sql
+        volumes:
+            - ./init.sql:/data/application/init.sql
+        healthcheck:
+            test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost", "-uroot"]
+            interval: 5s
+            timeout: 5s
+            retries: 20
+
+    node:
+        image: deniskasak/vergleich24:latest
+        container_name: node
+        restart: always
+        ports:
+            - 8081:8081
+        depends_on:
+            mysql:
+                condition: service_healthy
+
+        stdin_open: true
+        tty: true
+        environment:
+            - MYSQL_IN_CONTAINER=1
+        command: "npm run start"
