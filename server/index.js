@@ -75,6 +75,16 @@ app.get('/api/comments', async (req, res) => {
 		res.status(400).send("Error");
 	}
 });
+app.get('/api/mycomments' , async(req,res) => {
+	try{
+		let comments = await sqlmodule.getAllUserkommentare(req.cookies.userid);
+		res.status(200).send(comments);
+	}
+	catch(error){
+		console.log(error);
+		res.status(400).send("Error");
+	}
+})
 app.get('/api/mostvisited' , async(req, res) => {
 	try{
 		let mostvisited = await sqlmodule.getVisitedPages(req.userid);
@@ -91,8 +101,8 @@ app.get('/', (req, res) => {
 	res.sendFile('/html/index.html', { root: 'static' });
 });
 
-app.get('/index.html', (req, res) => {
-	res.cookie("lastvisited","/index.html");
+app.get('/index', (req, res) => {
+	res.cookie("lastvisited","/index");
 	res.sendFile('/html/index.html', { root: 'static' });
 });
 
@@ -100,6 +110,14 @@ app.get('/impressum', (req, res) => {
 	res.cookie("lastvisited","/impressum");
 	res.sendFile('/html/impressum.html', { root: 'static' });
 });
+app.get('/portale', (req, res) =>{
+	res.cookie("lastvisited","/portale");
+	res.sendFile('/html/portale.html', {root: 'static'})
+});
+app.get('/profil', (req, res) => {
+	res.cookie("lastvisited","/profil");
+	res.sendFile('/html/profil.html', {root: 'static'})
+})
 
 app.use(express.static('static'));
 
