@@ -184,7 +184,7 @@ function addVisitedPage(userid, page){
 
 function getVisitedPages(userid){
     return new Promise((resolve, reject) => {
-        const query = "SELECT pagename, COUNT(*) as page_visits_count FROM Page WHERE userid = '"+userid+"' GROUP BY pagename RDER BY page_visits_count DESC;";
+        const query = "SELECT pagename, COUNT(*) as page_visits_count FROM Pages WHERE userid = '"+userid+"' GROUP BY pagename ORDER BY page_visits_count DESC;";
         connection.connect(function (err){
             if(err) reject(err);
             connection.query(query, function(err, results, _ ){

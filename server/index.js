@@ -36,6 +36,18 @@ app.post('/api/comments', async (req, res) => {
 
 });
 
+app.post('/api/mostvisited', async (req, res) => {
+	try{
+		console.log(req.cookies.lastvisited);
+		await sqlmodule.addVisitedPage(req.cookies.userid, req.cookies.lastvisited);
+		res.clearCookie('lastvisited');
+		res.status(200).send("OK");
+	} catch (error){
+		console.log(error);
+		res.status(400).send("Error");
+	}
+});
+
 app.get('/api/comments', async (req, res) => {
 	try {
 		let comments = await sqlmodule.getKommentare();
@@ -63,16 +75,29 @@ app.get('/api/comments', async (req, res) => {
 		res.status(400).send("Error");
 	}
 });
-
+app.get('/api/mostvisited' , async(req, res) => {
+	try{
+		let mostvisited = await sqlmodule.getVisitedPages(req.userid);
+		console.log(mostvisited);
+		for (var site in mostvisited){}
+		res.status(200).send(mostvisited);
+	}catch(error){
+		console.log(error);
+		res.status(400).send("Meist besuchte Seiten können nicht geladen werden.");	
+	}
+});
 app.get('/', (req, res) => {
+	res.cookie("lastvisited","/index.html",{httpOnly: true, SameSite: "None"});
 	res.sendFile('/html/index.html', { root: 'static' });
 });
 
 app.get('/index.html', (req, res) => {
+	res.cookie("lastvisited","/index.html");
 	res.sendFile('/html/index.html', { root: 'static' });
 });
 
 app.get('/impressum', (req, res) => {
+	res.cookie("lastvisited","/impressum");
 	res.sendFile('/html/impressum.html', { root: 'static' });
 });
 

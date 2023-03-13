@@ -8,7 +8,7 @@ function generateDatabase() {
     const createKommentare = "CREATE TABLE Kommentare ( userid VARCHAR(100), kommentar VARCHAR(2000));";
     const createFavoriten = "CREATE TABLE Favoriten (id INT AUTO_INCREMENT PRIMARY KEY, userid VARCHAR(100), beschreibung VARCHAR(1000), query VARCHAR(2000));";
     const createUser = "CREATE TABLE User (dbid INT AUTO_INCREMENT PRIMARY KEY, id VARCHAR(100) , username VARCHAR(3000));";
-    const createPages = "CREATE TABLE Pages (pagename VARCHAR(300), userid INT(100));";
+    const createPages = "CREATE TABLE Pages (pagename VARCHAR(300), userid VARCHAR(100));";
 
     let connection1 = mysql.createConnection({
         host: 'localhost',
