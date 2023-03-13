@@ -1,10 +1,11 @@
 const { query } = require('express');
 let mysql = require('mysql2');
 
+const host = process.env.MYSQL_IN_CONTAINER === "1" ? "mysql" : "localhost";
+
 let connection = mysql.createConnection({
-    host: 'localhost',
+    host: host,
     user: 'root',
-    password: 'passwort',
     database: 'Vergleich24'
 });
 
