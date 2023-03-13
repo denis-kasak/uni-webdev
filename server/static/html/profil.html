@@ -1,8 +1,9 @@
 <head>
     <link rel="stylesheet" href="../css/profil.css">
+    <script src="/js/profil.js"></script>
 </head>
 
-<body>
+<body onload = "onload()">
     <div class="grid-container">
         <div class="item1">
             <img src="../images/user.png" width="100" height="100">
@@ -11,13 +12,17 @@
             <br>
             Aktiv seit:
         </div>
-        <div class="item2">Deine Favoriten:
+        <div class="item2">
+            <h2>Deine Favoriten:</h2>
             <br>
+            <div id="Favouritencontainer" ></div>
             <input type="text" height="48">
         </div>
 
-        <div class="item4">Deine Kommentare:
+        <div class="item4">
+            <h2>Deine Kommentare:</h2>
             <br>
+            <div id="Kommentarcontainer"></div>
             <input type="text" height="48">
         </div>
         <div class="item5">
