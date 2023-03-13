@@ -97,7 +97,7 @@ app.get('/api/mostvisited' , async(req, res) => {
 	}
 });
 app.get('/', (req, res) => {
-	res.cookie("lastvisited","/index.html",{httpOnly: true, SameSite: "None"});
+	res.cookie("lastvisited","/index",{httpOnly: true, SameSite: "None"});
 	res.sendFile('/html/index.html', { root: 'static' });
 });
 
