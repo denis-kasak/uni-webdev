@@ -3,7 +3,47 @@ function onload() {
     commentBtn.addEventListener("click", createComment);
 
     updateComments()
+    createmeistbesuchte()
+    updatemeistbesuchte()
 }
+
+async function updatemeistbesuchte(){ // TODO Logik prüfen.
+    let meistbesuchteContainer = document.getElementById("meistbesuchteContainer");
+    console.log(meistbesuchteContainer);
+    const meistbesuchte = await getMeistbesuchte();
+    meistbesuchteContainer.innerHTML = "";
+    let i = 1;
+    meistbesuchte.forEach(Seite => { 
+        console.log(Seite)
+        let Ranking = document.createElement("h3")
+        Ranking.innerHTML = i.toString() + ". meist besuchte Seite";
+        let Seitenname = document.createElement("h4");
+        Seitenname.innerHTML = "Ihr habt folgende Seite bereits " + Seite.page_visits_count + " mal besucht.";
+        let Seitenlink = document.createElement("p");
+        let str = "<a href= "+Seite.pagename+"> '"+Seite.pagename+"'</a>";
+        Seitenlink.innerHTML = str;
+        meistbesuchteContainer.appendChild(Ranking);
+        meistbesuchteContainer.appendChild(Seitenname);
+        meistbesuchteContainer.appendChild(Seitenlink);
+        i++;
+    }) 
+}
+
+async function getMeistbesuchte() {
+    return new Promise((resolve, reject) => {
+        //get request to server to get comments
+        fetch("/api/mostvisited")
+            .then(res => res.json())
+            .then(visited => {
+                resolve(visited);
+            })
+            .catch(err => {
+                reject(err);
+            })
+    });
+
+}
+
 
 
 function createComment() {
@@ -25,6 +65,21 @@ function createComment() {
             console.log(err);
         })
     
+}
+
+function createmeistbesuchte() { //Diese Funktion muss von jeder Seite per Onload gecallt werden.
+    fetch("/api/mostvisited", {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+        .then(()=>{
+            updatemeistbesuchte();
+        })
+        .catch(err => {
+            console.log(err);
+        })
 }
 
 async function getComments() {
