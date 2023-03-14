@@ -47,6 +47,24 @@ app.post('/api/mostvisited', async (req, res) => {
 		res.status(400).send("Error");
 	}
 });
+app.post('/api/favoriten' , async (req,res) =>{
+	try{
+		sqlmodule.setFavorite(req.cookies.userid, req.body.Favoriten, req.body.Favoritenlink);
+		res.status(200).send("OK");
+	}catch(error){
+		console.log(error);
+		res.status(400).send("Error");
+	}
+})
+app.get('/api/favoriten' , async (req,res) => {
+	try{
+		let Favoriten = sqlmodule.getAllFavoriten(req.cookies.userid);
+		res.status(200).send(Favoriten);
+	}catch(error){
+		console.log(error);
+		res.status(400).send("Error");
+	}
+})
 
 app.get('/api/comments', async (req, res) => {
 	try {
